@@ -3,6 +3,7 @@ package com.ivanserbyniuk.fluentlist;
 import android.support.annotation.NonNull;
 
 import java.lang.reflect.Array;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -131,6 +132,37 @@ public class FluentList<T>
     }
 
     /**
+     * Distinct fluent list.
+     * Usage:
+     * List uniqueUsers = users.distinct();
+     * Users
+     * @return a list containing only distinct elements from the given list
+     */
+    public FluentList<T> distinct() {
+        return from(toSet());
+    }
+
+    /**
+     * Distinct fluent list by keySelector.
+     * Usage:
+     * List uniqueUsersById = users.distinct(user-> user.id);
+     * @param <K> the type parameter
+     * @param keySelector the key selector
+     * @return the fluent list
+     */
+    public <K> FluentList distinct(final ListUtils.TransformFunc<T, K> keySelector) {
+        HashSet<K> set = new HashSet<>();
+        List<T> list = new ArrayList<>();
+        for (T item : this) {
+            K key = keySelector.apply(item);
+            if (set.add(key)) {
+                list.add(item);
+            }
+        }
+        return from(list);
+    }
+
+    /**
      * Is at least one element matches the given [predicate].
      * Usage: boolean isAuthUserExist = users.any(user-> user.isAuthorize())
      * @param predicate the predicate
@@ -234,6 +266,38 @@ public class FluentList<T>
     public T[] toTypedArray(Class<T[]> tClass) {
         T[] array = tClass.cast(Array.newInstance(tClass.getComponentType(), size()));
         return toArray(array);
+    }
+
+    /**
+     * Create immutable list.
+     */
+    public List<T> toImmutableList() {
+        return new AbstractList<T>() {
+            @Override
+            public T get(int index) {
+                return list.get(index);
+            }
+
+            @Override
+            public int size() {
+                return list.size();
+            }
+
+            @Override
+            public boolean add(T t) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public boolean addAll(Collection<? extends T> c) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public void clear() {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 
     @Override
