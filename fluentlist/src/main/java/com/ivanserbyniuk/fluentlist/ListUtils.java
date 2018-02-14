@@ -158,13 +158,12 @@ public class ListUtils {
 
     /**
      * Is all item of list suppress the predicate.
-     * Usage: boolean isAuthUserExist = any(users, user-> user.isAuthorize())
+     * Usage: boolean isAuthUserExist = all(users, user-> user.isAuthorize())
      * @param <T> the type parameter
      * @param list the list
      * @param predicate the predicate
      * @return true is all items of the list suppress the predicate
      */
-
     public static <T> boolean all(@NonNull final List<T> list, final Predicate<T> predicate) {
         for (T item : list) {
             if (!predicate.test(item)) {
@@ -180,7 +179,7 @@ public class ListUtils {
      * @param <T> the type parameter
      * @param list the list
      * @param predicate the predicate
-     * @return true is someone item of the list suppress the predicate
+     * @return true if someone item of the list suppress the predicate
      */
      public static <T> boolean any(@NonNull final List<T> list, final Predicate<T> predicate) {
         for (T item : list) {
@@ -191,12 +190,17 @@ public class ListUtils {
         return false;
     }
 
-
-    //wasnt tested
+    /**
+     * Is there ane no items of list which suppress the predicate.
+     * Usage: boolean isAuthUserExist = any(users, user-> user.isAuthorize())
+     * @param <T> the type parameter
+     * @param list the list
+     * @param predicate the predicate
+     * @return true if there are no items of the list suppress the predicate
+     */
     public static<T> boolean non(@NonNull final List<T> list, final Predicate<T> predicate) {
         return !any(list, predicate);
     }
-
 
     /**
      * Get flat list.

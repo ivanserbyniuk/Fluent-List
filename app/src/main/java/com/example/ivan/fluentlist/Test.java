@@ -36,13 +36,12 @@ public class Test {
                 .sortedBy(user -> user.name)
                 .groupBy(user -> String.valueOf(user.name.charAt(0)));
 
-        FluentList.from(groups)
+        List<User> result = FluentList.from(groups)
                 .filter(it-> !it.getKey().equalsIgnoreCase("j"))
                 .flatMap(Map.Entry::getValue);
 
-
-
-        String usersText = FluentList.from(users).joinToStringBy(",", it -> "[ " + it.id + " " + it.name +" ] ");
+        String usersText = FluentList.from(users)
+                .joinToStringBy(",", it -> "[ " + it.id + " " + it.name + " ] ");
 
     }
 
