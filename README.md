@@ -4,7 +4,7 @@
 
 Description coming soon...
 
- //get list of adult users
+        //get list of adult users
         List<User> adultUsers = FluentList.from(users)
                 .filter(user -> user.age > 18);
 
