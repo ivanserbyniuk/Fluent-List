@@ -12,6 +12,7 @@ Description coming soon...
         List<String> names = FluentList.from(users)
                 .map(it -> it.name)
                 .distinct();
+ 
         List<Long> idOfAdultUsers = FluentList.from(users)
                 .filter(user -> user.age > 18)
                 .map(user -> user.id);
