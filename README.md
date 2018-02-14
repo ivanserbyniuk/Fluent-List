@@ -8,7 +8,7 @@ Description coming soon...
         List<User> adultUsers = FluentList.from(users)
                 .filter(user -> user.age > 18);
 
-        //get name with out duplicates
+        //get name without duplicates
         List<String> names = FluentList.from(users)
                 .map(it -> it.name)
                 .distinct();
