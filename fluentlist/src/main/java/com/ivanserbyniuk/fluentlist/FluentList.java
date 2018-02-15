@@ -7,6 +7,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -43,7 +44,7 @@ public class FluentList<T>
      * @param array the array
      * @return the fluent list
      */
-    public static <T> FluentList<T> from(T[] array) {
+    public static <T> FluentList<T> from(T... array) {
         return new FluentList<>(new ArrayList<>(Arrays.asList(array)));
     }
 
@@ -68,6 +69,20 @@ public class FluentList<T>
      */
     public static <K, V> FluentList<Map.Entry<K, V>> from(Map<K, V> map) {
         return from(map.entrySet());
+    }
+
+    public static FluentList<Integer> intRange(int startInclusive, int endExclusive) {
+        ArrayList<Integer> arrayList = new ArrayList<>(endExclusive);
+        if (startInclusive >= endExclusive) {
+            return from(Collections.<Integer>emptyList());
+        } else {
+            int lastIndex = startInclusive + endExclusive;
+            for (int i = startInclusive; i <= lastIndex; i++) {
+                arrayList.add(i);
+            }
+        }
+        return from(arrayList);
+
     }
 
     /**
