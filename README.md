@@ -2,44 +2,75 @@
 ### For developers who like Kotlin but most work on Java.)
 ### Java library for working with lists in functional style like in Kotlin. 
 
+###Usage
+
+    List<Item> result = FluentList.from(/* array | list | set | map | varargs*/)
+        .filter(..)
+        .map(..)
+         ...
+        .distinct()
+        .sorted()
+  
+     FluentList.intRange(0, 10)...
+     
+### Some practical examples
 Description coming soon...
 
-        //get list of adult users
-        List<User> adultUsers = FluentList.from(users)
-                .filter(user -> user.age > 18);
+get list of adult users
 
-        //get name without duplicates
-        List<String> names = FluentList.from(users)
-                .map(it -> it.name)
-                .distinct();
- 
-        List<Long> idOfAdultUsers = FluentList.from(users)
-                .filter(user -> user.age > 18)
-                .map(user -> user.id);
+    List<User> adultUsers = FluentList.from(users)
+        .filter(user -> user.age > 18);
+                
+get list of names of adult users
 
-        User findUser = FluentList.from(users)
-                .firstOrNull(user -> user.id == 1);
+    List<Long> usersNames = FluentList.from(users)
+        .filter(user -> user.age > 18)
+        .map(user -> user.name);
+                
+get sorted list of name of adult users without duplicates
+                
+    List<Long> usersNames = FluentList.from(users)
+        .filter(user -> user.age > 18)
+        .map(user -> user.name)
+        .distinct()
+        .sorted();
+                
+get users who has books, sorted by age
 
-        List<User> sortedUsers = FluentList.from(users)
-                .sortedBy(user -> user.name);
+    List<User> users = FluentList.from(users)
+         .filter(user -> !user.getBooks().isEmpty())
+         .sortedBy(user-> user.age);
+        
+find user with id = 1
 
-        Map<String, List<User>> groups = FluentList.from(users)
-                .sortedBy(user -> user.name)
-                .groupBy(user -> String.valueOf(user.name.charAt(0)));
+    User user = fluentList.firstOrNull(user -> user.getId() == 1);
+
+group users by fist letter of theirs name, itch group must be sorted by names: key is first letter, value sorted list of users
+with name start from this letter 
+
+    Map<String, List<User>> groups = FluentList.from(users)
+        .sortedBy(user -> user.name)
+        .groupBy(user -> String.valueOf(user.name.charAt(0)));
+
+get all books form users(all lists of books from all users will concat ) without duplicated.
 
         List<Book> usersBooks = FluentList.from(users)
-                .flatMap(it -> it.books)
+                .flatMap(it -> it.getBooks)
                 .distinct();
+get lists of users who read Frank Gerbert
 
         List<User> userHowReadFrankGerbert = FluentList.from(users)
                 .filter(user -> FluentList.from(user.books)
                         .any(book -> book.author.equalsIgnoreCase("Frank Gerbert")));
+                        
+create sting by user list 
 
         String usersLogText = FluentList.from(users)
-                .joinToStringBy(",", it -> "[ " + it.id + " " + it.name + " ] ");
+                .joinToStringBy(",", it -> " [ " + it.age + " " + it.name + " ] ");
+
+iterate lists
 
         FluentList.from(users)
-                .map(user -> user.name)
                 .forEachItem(System.out::print);
 
         FluentList.from(users)
