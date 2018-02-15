@@ -2,7 +2,7 @@
 ### For developers who like Kotlin but most work on Java.)
 ### Java library for working with lists in functional style like in Kotlin. 
 
-###Usage
+### Usage
 
     List<Item> result = FluentList.from(/* array | list | set | map | varargs*/)
         .filter(..)
@@ -14,7 +14,6 @@
      FluentList.intRange(0, 10)...
      
 ### Some practical examples
-Description coming soon...
 
 get list of adult users
 
@@ -75,3 +74,6 @@ iterate lists
 
         FluentList.from(users)
                 .forEachIndexes((index, item) -> System.out.print("" + index + " item " + item + ""));
+
+
+## To be continued
