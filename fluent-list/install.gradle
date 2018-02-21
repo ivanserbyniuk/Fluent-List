@@ -1,0 +1,38 @@
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.ivanserbyniuk.fluentlist' // CREATE A GROUP ID FOR YOUR LIBRARY
+
+install {
+  repositories.mavenInstaller {
+    pom {
+      project {
+        packaging 'aar'
+        groupId 'com.ivanserbyniuk.fluentlist' // CREATE A GROUP ID FOR YOUR LIBRARY
+        artifactId 'fluentlist' // THE NAME OF YOUR MODULE
+
+        name 'Fluent List' // YOUR LIBRARY NAME
+
+
+        licenses {
+          license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+        developers {
+          developer {
+            id 'ivanserbyniuk' //YOUR ID
+            name 'Ivan Serbyniuk' //YOUR NAME
+            email 'ivan.serbyniuk@gmail.com' //YOUR EMAIL
+          }
+        }
+        scm {
+          connection 'https://github.com/ivanserbyniuk/Fluent-List.git' // YOUR GIT REPO
+          developerConnection 'https://github.com/ivanserbyniuk/Fluent-List.git' // YOUR GIT REPO
+
+
+        }
+      }
+    }
+  }
+}

@@ -87,7 +87,6 @@ public class FluentList<T>
 
     /**
      * Transform list items and return new list.
-     * Usage: List authorizeUsers = users.filter(user -> user.isAuthorize())
      * @param <R> the type parameter
      * @param transform the transform
      * @return fluent list
@@ -98,7 +97,6 @@ public class FluentList<T>
 
     /**
      * Filter list by predicate.
-     * Usage: List authorizeUsers = users.filter(user -> user.isAuthorize())
      * @param predicate the predicate
      * @return the fluent list
      */
@@ -108,8 +106,6 @@ public class FluentList<T>
 
     /**
      * Find item by predicate.
-     * Usage:  User user = users.firstOrNull(user -> user.getAge() == 30);
-     * find first item with age == 30
      * @param predicate the predicate
      * @return the first item by the predicate.
      */
@@ -130,7 +126,6 @@ public class FluentList<T>
 
     /**
      * Iterate each element.
-     * Usage: users.forEachItem(item -> print(item)
      * @param consumer the consumer
      */
     public void forEachItem(ListUtils.ConsumerFunc<T> consumer) {
@@ -139,7 +134,6 @@ public class FluentList<T>
 
     /**
      * Iterate each element with index.
-     * Usage: users.forEachIndexes((index, item) -> {...})
      * @param consumer the consumer
      */
     public void forEachIndexes(ListUtils.ConsumerFunc2<Integer, T> consumer) {
@@ -148,8 +142,6 @@ public class FluentList<T>
 
     /**
      * Distinct fluent list.
-     * Usage:
-     * List uniqueUsers = users.distinct();
      * Users
      * @return a list containing only distinct elements from the given list
      */
@@ -159,8 +151,6 @@ public class FluentList<T>
 
     /**
      * Distinct fluent list by keySelector.
-     * Usage:
-     * List uniqueUsersById = users.distinct(user-> user.id);
      * @param <K> the type parameter
      * @param keySelector the key selector
      * @return the fluent list
@@ -179,7 +169,6 @@ public class FluentList<T>
 
     /**
      * Is at least one element matches the given [predicate].
-     * Usage: boolean isAuthUserExist = users.any(user-> user.isAuthorize())
      * @param predicate the predicate
      * @return `true` if at least one element matches the given [predicate]
      */
@@ -189,7 +178,6 @@ public class FluentList<T>
 
     /**
      * Is all elements match the given [predicate].
-     * Usage: boolean isAuthUserExist = users.all(user-> user.isAuthorize())
      * @param predicate the predicate
      * @return `true` if all elements match the given [predicate]
      */
@@ -199,7 +187,6 @@ public class FluentList<T>
 
     /**
      * Is no elements match the given [predicate].
-     * Usage: boolean allUsersUnregister = users.none(user-> user.isAuthorize())
      * @param predicate the predicate
      * @return true if no elements match the given [predicate]
      */
@@ -210,7 +197,6 @@ public class FluentList<T>
     /**
      * Gets a single list of all elements yielded from results of [transform] function being invoked on each element of
      * original collection..
-     * Usage: List books = flatMap(users -> user.getBooks())
      * @param <R> the type parameter
      * @param transformer the transformer
      * @return fluent list
@@ -223,10 +209,6 @@ public class FluentList<T>
      * Groups elements of the original collection by the key returned by the given [keySelector] function
      * applied to each element and returns a map where each group key is associated with a list of corresponding
      * elements.
-     * Usage:
-     * List words = Arrays.asList("text", "table", "tiers", "jack", "jam","apple", "table", "entire"...
-     * Map groupMap = ListUtils.groupBy(words, it -> it.charAt(0));(Group by first letter)
-     * variable groupMap contains {a=[apple], j=[jack, jam], e=[entire, enterprise], t=[text, table, tiers, table]...}
      * @param <K> the type parameter
      * @param keySelector the transform
      * @return the grouped map
@@ -242,6 +224,47 @@ public class FluentList<T>
      */
     public T reduce(final ListUtils.BiOperationFunc<T, T> reducer) {
         return ListUtils.reduce(list, reducer);
+    }
+
+    /**
+     * Returns the first element yielding the smallest value of the given function or throw exception .
+     */
+    public <R extends Comparable<R>> T minBy(final ListUtils.TransformFunc<T, R> transform) {
+        return ListUtils.reduce(list, new ListUtils.BiOperationFunc<T, T>() {
+            @Override
+            public T apply(T first, T second) {
+                return transform.apply(first).compareTo(transform.apply(second)) == -1 ? first : second;
+            }
+        });
+    }
+
+    /**
+     * Returns the first element yielding the largest value of the given function or trow exception` if there are no
+     * elements.
+     */
+    public <R extends Comparable<R>> T maxBy(final ListUtils.TransformFunc<T, R> transform) {
+        return ListUtils.reduce(list, new ListUtils.BiOperationFunc<T, T>() {
+            @Override
+            public T apply(T first, T second) {
+                return transform.apply(first).compareTo(transform.apply(second)) == 1 ? first : second;
+            }
+        });
+    }
+
+    /**
+     * Returns the sum of all values produced by [transform] function applied to each element in the collection.
+     */
+    public Integer sumBy(final ListUtils.TransformFunc<T, Integer> transform) {
+        List<Integer> intList = new ArrayList<>(list.size());
+        for (T item : list) {
+            intList.add(transform.apply(item));
+        }
+        return ListUtils.reduce(intList, new ListUtils.BiOperationFunc<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer first, Integer second) {
+                return first + second;
+            }
+        });
     }
 
     /**
@@ -281,6 +304,11 @@ public class FluentList<T>
     public T[] toTypedArray(Class<T[]> tClass) {
         T[] array = tClass.cast(Array.newInstance(tClass.getComponentType(), size()));
         return toArray(array);
+    }
+
+    public FluentList<T> plus(T item) {
+        this.add(item);
+        return this;
     }
 
     /**

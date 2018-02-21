@@ -22,8 +22,6 @@ public class ListUtils {
 
     /**
      * Find item by predicate.
-     * Usage:  User user = firstOrNull(users, user -> user.getAge() == 30);
-     * find first item with age == 30
      * @param <T> the type parameter
      * @param values the values
      * @param predicate the predicate
@@ -41,7 +39,6 @@ public class ListUtils {
 
     /**
      * Transform list items and return new list.
-     * Usage: List authorizeUsers = filter(users, user -> user.isAuthorize())
      * @param <T> the type parameter
      * @param <R> the type parameter
      * @param list the list
@@ -59,7 +56,6 @@ public class ListUtils {
 
     /**
      * Filter list by predicate.
-     * Usage: List authorizeUsers = filter(users, user -> user.isAuthorize())
      * @param <T> the type parameter
      * @param list the list
      * @param predicate the predicate
@@ -158,7 +154,6 @@ public class ListUtils {
 
     /**
      * Is all item of list suppress the predicate.
-     * Usage: boolean isAuthUserExist = all(users, user-> user.isAuthorize())
      * @param <T> the type parameter
      * @param list the list
      * @param predicate the predicate
@@ -175,7 +170,6 @@ public class ListUtils {
 
     /**
      * Is any item of list suppress the predicate.
-     * Usage: boolean isAuthUserExist = any(users, user-> user.isAuthorize())
      * @param <T> the type parameter
      * @param list the list
      * @param predicate the predicate
@@ -192,7 +186,6 @@ public class ListUtils {
 
     /**
      * Is there ane no items of list which suppress the predicate.
-     * Usage: boolean isAuthUserExist = any(users, user-> user.isAuthorize())
      * @param <T> the type parameter
      * @param list the list
      * @param predicate the predicate
@@ -204,7 +197,6 @@ public class ListUtils {
 
     /**
      * Get flat list.
-     * Usage: List books = flatMap(users -> user.getBooks())
      * @param <T> the type parameter
      * @param <R> the type parameter
      * @param list the list
@@ -221,11 +213,7 @@ public class ListUtils {
     }
 
     /**
-     * Return HashMap that contains an ArrayList of items of list keyed by a specified {@code keySelector} function.
-     * Example:
-     * List words = Arrays.asList("text", "table", "tiers", "jack", "jam","apple", "table", "entire"...
-     * Map groupMap = ListUtils.groupBy(words, it -> it.charAt(0));(Group by first letter)
-     * variable groupMap contains {a=[apple], j=[jack, jam], e=[entire, enterprise], t=[text, table, tiers, table]...}
+     * Return HashMap that contains an ArrayList of items of list keyed by a specified {@code keySelector} function.}
      * @param <T> the type parameter
      * @param <K> the type parameter
      * @param list the list
