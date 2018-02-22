@@ -34,7 +34,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
- // compile project(path: ':fluentlist')
-  compile 'com.ivanserbyniuk:fluentlist:0.4.1'
-
+    compile 'com.ivanserbyniuk.retro:fluent-list:0.4.8@aar'
+}
+repositories {
+  maven {
+    url  "https://dl.bintray.com/ivanserbyniuk/retro"
+  }
 }
