@@ -86,4 +86,53 @@ with name start from this letter
         .forEachIndexes((index, item) -> System.out.print("" + index + " item " + item + ""));
 
 
-## To be continued
+## See also
+
+- any 
+ 
+ 
+        boolean withPriceMoreThen50 = FluentList.from(products).any(it -> it.getPrice() > 50);
+        assertTrue(withPriceMoreThen50);
+
+        boolean withPriceMoreThen150 = FluentList.from(products).any(it -> it.getPrice() > 150);
+        assertFalse(withPriceMoreThen150);
+
+- all
+
+
+        boolean allItemsCheaperThen100 = FluentList.from(products).all(it -> it.getPrice() < 100);
+        assertTrue(allItemsCheaperThen100);
+
+        boolean allItemsCheaperThen10 = FluentList.from(products).all(it -> it.getPrice() < 10);
+        assertFalse(allItemsCheaperThen10);
+    
+- non 
+
+
+        boolean noPriceMoreThen100 = FluentList.from(products).non(it -> it.getPrice() > 100);
+        assertTrue(noPriceMoreThen100);
+
+        boolean noPirceLessThen100 = FluentList.from(products).non(it -> it.getPrice() < 100);
+        assertFalse(noPirceLessThen100);
+    
+- minBy
+
+ 
+        Product cheapestProduct = FluentList.from(products).minBy(Product::getPrice);
+        assertEquals("prod5", cheapestProduct.getName());
+
+
+- maxBy
+ 
+ 
+        Product mostExpensiveProduct = FluentList.from(products).maxBy(Product::getPrice);
+        assertEquals("prod4", mostExpensiveProduct.getName());
+ 
+
+- sumBy
+
+
+        int priceForAllProds = FluentList.from(products).sumBy(Product::getPrice);
+        assertEquals(78, priceForAllProds);
+ 
+   ## To be continued
