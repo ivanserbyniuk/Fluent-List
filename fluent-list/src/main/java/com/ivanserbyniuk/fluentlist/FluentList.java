@@ -105,6 +105,20 @@ public class FluentList<T>
     }
 
     /**
+     * Return first item of list
+     */
+    public T firstOrNull() {
+        return list.get(0);
+    }
+
+    /**
+     * Return last item of list
+     */
+    public T lastOrNull() {
+        return list.get(list.size() - 1);
+    }
+
+    /**
      * Find item by predicate.
      * @param predicate the predicate
      * @return the first item by the predicate.
@@ -195,6 +209,13 @@ public class FluentList<T>
     }
 
     /**
+     * Returns the number of elements matching the given [predicate].
+     */
+    public int count(final ListUtils.Predicate<T> predicate) {
+        return ListUtils.count(list, predicate);
+    }
+
+    /**
      * Gets a single list of all elements yielded from results of [transform] function being invoked on each element of
      * original collection..
      * @param <R> the type parameter
@@ -206,7 +227,7 @@ public class FluentList<T>
     }
 
     /**
-     * Groups elements of the original collection by the key returned by the given [keySelector] function
+     * Groups elements of the original collection by the key returned by the given [kepluySelector] function
      * applied to each element and returns a map where each group key is associated with a list of corresponding
      * elements.
      * @param <K> the type parameter
@@ -288,6 +309,13 @@ public class FluentList<T>
         return ListUtils.joinToStringBy(list, transform);
     }
 
+    public FluentList<T> reversed() {
+        ArrayList<T> arrayList = new ArrayList<>(this.size());
+        arrayList.addAll(this);
+        Collections.reverse(arrayList);
+        return from(arrayList);
+    }
+
     /**
      * CreateeSet form current list.
      * @return the Set
@@ -307,8 +335,16 @@ public class FluentList<T>
     }
 
     public FluentList<T> plus(T item) {
-        this.add(item);
-        return this;
+        ArrayList<T> arrayList = new ArrayList<>(list.size() + 1);
+        arrayList.addAll(this);
+        arrayList.add(item);
+        return from(arrayList);
+    }
+
+    public FluentList<T> plus(Collection<T> iterable) {
+        ArrayList<T> arrayList = new ArrayList<>(this.size() + iterable.size());
+        arrayList.addAll(iterable);
+        return from(arrayList);
     }
 
     /**
@@ -316,6 +352,9 @@ public class FluentList<T>
      */
     public List<T> toImmutableList() {
         return new AbstractList<T>() {
+
+            private UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException("Immutable list");
+
             @Override
             public T get(int index) {
                 return list.get(index);
@@ -328,17 +367,17 @@ public class FluentList<T>
 
             @Override
             public boolean add(T t) {
-                throw new UnsupportedOperationException();
+                throw unsupportedOperationException;
             }
 
             @Override
             public boolean addAll(Collection<? extends T> c) {
-                throw new UnsupportedOperationException();
+                throw unsupportedOperationException;
             }
 
             @Override
             public void clear() {
-                throw new UnsupportedOperationException();
+                throw unsupportedOperationException;
             }
         };
     }

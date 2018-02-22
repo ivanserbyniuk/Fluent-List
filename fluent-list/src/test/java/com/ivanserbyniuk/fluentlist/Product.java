@@ -20,4 +20,28 @@ public class Product {
     public int getPrice() {
         return price;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Product)) {
+            return false;
+        }
+
+        Product product = (Product) o;
+
+        if (getPrice() != product.getPrice()) {
+            return false;
+        }
+        return getName() != null ? getName().equals(product.getName()) : product.getName() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + getPrice();
+        return result;
+    }
 }

@@ -82,7 +82,7 @@ public class ListUtils {
      */
     @NonNull
     public static <T, R extends Comparable<R>> List<T> sortedBy(@NonNull final List<T> list,
-                                                              final TransformFunc<T, R> transform) {
+                                                                final TransformFunc<T, R> transform) {
         List<T> sortedList = new ArrayList<>(list);
         Collections.sort(sortedList, new Comparator<T>() {
             @Override
@@ -114,7 +114,7 @@ public class ListUtils {
      * @param consumer the consumer
      */
     public static <T> void forEachIndexes(@NonNull final List<T> list, ConsumerFunc2<Integer, T> consumer) {
-        for(int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             consumer.apply(i, list.get(i));
         }
     }
@@ -175,7 +175,7 @@ public class ListUtils {
      * @param predicate the predicate
      * @return true if someone item of the list suppress the predicate
      */
-     public static <T> boolean any(@NonNull final List<T> list, final Predicate<T> predicate) {
+    public static <T> boolean any(@NonNull final List<T> list, final Predicate<T> predicate) {
         for (T item : list) {
             if (predicate.test(item)) {
                 return true;
@@ -191,8 +191,21 @@ public class ListUtils {
      * @param predicate the predicate
      * @return true if there are no items of the list suppress the predicate
      */
-    public static<T> boolean non(@NonNull final List<T> list, final Predicate<T> predicate) {
+    public static <T> boolean non(@NonNull final List<T> list, final Predicate<T> predicate) {
         return !any(list, predicate);
+    }
+
+    /**
+     * Returns the number of elements matching the given [predicate].
+     */
+    public static <T> int count(@NonNull final List<T> list, final Predicate<T> predicate) {
+        int count = 0;
+        for (T item : list) {
+            if (predicate.test(item)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
