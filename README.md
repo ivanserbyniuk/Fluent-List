@@ -18,20 +18,20 @@
 - get list of adult users
 
 
-    List<User> adultUsers = FluentList.from(users)
+      List<User> adultUsers = FluentList.from(users)
         .filter(user -> user.age > 18);
                 
 - get list of names of adult users
 
 
-    List<String> usersNames = FluentList.from(users)
+      List<String> usersNames = FluentList.from(users)
         .filter(user -> user.age > 18)
         .map(user -> user.name);
                 
 - get sorted list of name of adult users without duplicates
                 
                 
-    List<String> usersNames = FluentList.from(users)
+      List<String> usersNames = FluentList.from(users)
         .filter(user -> user.age > 18)
         .map(user -> user.name)
         .distinct()
@@ -40,7 +40,7 @@
 - get users who has books, sorted by age
 
 
-    List<User> users = FluentList.from(users)
+      List<User> users = FluentList.from(users)
          .filter(user -> !user.getBooks().isEmpty())
          .sortedBy(user-> user.age);
         
@@ -60,29 +60,29 @@ with name start from this letter
 - get all books form users(all lists of books from all users will concat ) without duplicated.
 
 
-    List<Book> usersBooks = FluentList.from(users)
+      List<Book> usersBooks = FluentList.from(users)
         .flatMap(it -> it.getBooks)
         .distinct();
 - get lists of users who read Frank Gerbert
 
 
-    List<User> userHowReadFrankGerbert = FluentList.from(users)
+      List<User> userHowReadFrankGerbert = FluentList.from(users)
         .filter(user -> FluentList.from(user.books)
             .any(book -> book.author.equalsIgnoreCase("Frank Gerbert")));
                         
 - create string by user list 
 
 
-    String usersLogText = FluentList.from(users)
+      String usersLogText = FluentList.from(users)
         .joinToStringBy(",", it -> " [ " + it.age + " " + it.name + " ] ");
 
 - iterate lists
 
 
-    FluentList.from(users)
+      FluentList.from(users)
         .forEachItem(System.out::print);
 
-    FluentList.from(users)
+      FluentList.from(users)
         .forEachIndexes((index, item) -> System.out.print("" + index + " item " + item + ""));
 
 
