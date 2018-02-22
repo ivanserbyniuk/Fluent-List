@@ -6,14 +6,14 @@
 Add to build.gradle
 
     dependencies {
-    ...
-    compile 'com.ivanserbyniuk.retro:fluent-list:0.4.8@aar'
+       .......
+       compile 'com.ivanserbyniuk.retro:fluent-list:0.2.6@aar'
     }
     repositories {
-         maven {
-            url  "https://dl.bintray.com/ivanserbyniuk/retro"
-                }
-            }
+        maven {
+             url  "https://dl.bintray.com/ivanserbyniuk/retro"
+        }
+    }
 ### Usage
 
     List<Item> result = FluentList.from(/* array | list | set | map | varargs*/)
