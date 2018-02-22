@@ -1,7 +1,19 @@
 # Fluent-List
 ### For developers who like Kotlin but must work on Java.)
 ### Java library for working with lists in functional style like in Kotlin. 
+### Install 
 
+Add to build.gradle
+
+    dependencies {
+    ...
+    compile 'com.ivanserbyniuk.retro:fluent-list:0.4.8@aar'
+    }
+    repositories {
+         maven {
+            url  "https://dl.bintray.com/ivanserbyniuk/retro"
+                }
+            }
 ### Usage
 
     List<Item> result = FluentList.from(/* array | list | set | map | varargs*/)
