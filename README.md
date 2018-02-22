@@ -7,7 +7,7 @@ Add to build.gradle
 
     dependencies {
        .......
-       compile 'com.ivanserbyniuk.retro:fluent-list:0.2.6@aar'
+       compile 'com.ivanserbyniuk.retro:fluent-list:0.4.8@aar'
     }
     repositories {
         maven {
